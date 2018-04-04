@@ -8,17 +8,24 @@ const notes = require('./note.js');
 
 const argv = yargs.argv;
 var command = process.argv[2];
-console.log('Command: ' + command);
-console.log('Yargs: ' + argv);
 
 if (command === 'add'){
-    notes.addNote(argv.title, argv.body);
+    var note = notes.addNote(argv.title, argv.body);
+    if (note){
+        console.log('------Note Created-------')
+        console.log(`Title: ${note.title} Body: ${note.body}`);
+        console.log('-------------------------')
+    }
+    else{
+        console.log('Note title already exists');
+    }
+
 } else if (command === 'list'){
     notes.getAll();
 } else if (command === 'read'){
     notes.getNote(argv.title);
 } else if (command === 'remove'){
-    notes.removeNotex(argv.title);
+    notes.removeNote(argv.title);
 } else{
     console.log('Command not recognized');
 }
